@@ -1,0 +1,1375 @@
+{
+    "type": "object",
+    "properties": {
+        "documentId": {
+            "required": true,
+            "type": "string"
+        },
+        "access_token": {
+            "type": "string"
+        },
+        "alt": {
+            "type": "string",
+            "enum": [
+                "json",
+                "media",
+                "proto"
+            ],
+            "default": "json"
+        },
+        "callback": {
+            "type": "string"
+        },
+        "fields": {
+            "type": "string"
+        },
+        "key": {
+            "type": "string"
+        },
+        "oauth_token": {
+            "type": "string"
+        },
+        "prettyPrint": {
+            "type": "boolean",
+            "default": true
+        },
+        "quotaUser": {
+            "type": "string"
+        },
+        "uploadType": {
+            "type": "string"
+        },
+        "upload_protocol": {
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "Request message for BatchUpdateDocument.",
+            "properties": {
+                "requests": {
+                    "description": "A list of updates to apply to the document.",
+                    "items": {
+                        "description": "A single update to apply to a document.",
+                        "properties": {
+                            "createNamedRange": {
+                                "description": "Creates a named range.",
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the NamedRange. Names do not need to be unique.\n\nNames must be at least 1 character and no more than 256 characters,\nmeasured in UTF-16 code units.",
+                                        "type": "string"
+                                    },
+                                    "range": {
+                                        "description": "The range to apply the name to.",
+                                        "properties": {
+                                            "endIndex": {
+                                                "description": "The zero-based end index of this range, exclusive, in UTF-16 code units.\n\nIn all current uses, an end index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote that this range is contained in.\nAn empty segment ID signifies the document's body.",
+                                                "type": "string"
+                                            },
+                                            "startIndex": {
+                                                "description": "The zero-based start index of this range, in UTF-16 code units.\n\nIn all current uses, a start index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "createParagraphBullets": {
+                                "description": "Creates bullets for paragraphs.",
+                                "properties": {
+                                    "bulletPreset": {
+                                        "description": "The kinds of bullet glyphs to be used.",
+                                        "enum": [
+                                            "BULLET_GLYPH_PRESET_UNSPECIFIED",
+                                            "BULLET_DISC_CIRCLE_SQUARE",
+                                            "BULLET_DIAMONDX_ARROW3D_SQUARE",
+                                            "BULLET_CHECKBOX",
+                                            "BULLET_ARROW_DIAMOND_DISC",
+                                            "BULLET_STAR_CIRCLE_SQUARE",
+                                            "BULLET_ARROW3D_CIRCLE_SQUARE",
+                                            "BULLET_LEFTTRIANGLE_DIAMOND_DISC",
+                                            "BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE",
+                                            "BULLET_DIAMOND_CIRCLE_SQUARE",
+                                            "NUMBERED_DECIMAL_ALPHA_ROMAN",
+                                            "NUMBERED_DECIMAL_ALPHA_ROMAN_PARENS",
+                                            "NUMBERED_DECIMAL_NESTED",
+                                            "NUMBERED_UPPERALPHA_ALPHA_ROMAN",
+                                            "NUMBERED_UPPERROMAN_UPPERALPHA_DECIMAL",
+                                            "NUMBERED_ZERODECIMAL_ALPHA_ROMAN"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "range": {
+                                        "description": "The range to apply the bullet preset to.",
+                                        "properties": {
+                                            "endIndex": {
+                                                "description": "The zero-based end index of this range, exclusive, in UTF-16 code units.\n\nIn all current uses, an end index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote that this range is contained in.\nAn empty segment ID signifies the document's body.",
+                                                "type": "string"
+                                            },
+                                            "startIndex": {
+                                                "description": "The zero-based start index of this range, in UTF-16 code units.\n\nIn all current uses, a start index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "deleteContentRange": {
+                                "description": "Deletes content from the document.",
+                                "properties": {
+                                    "range": {
+                                        "description": "The range of content to delete.\n\nDeleting text that crosses a paragraph boundary may result in changes\nto paragraph styles, lists, positioned objects and bookmarks as the two\nparagraphs are merged.\n\nAttempting to delete certain ranges can result in an invalid document\nstructure in which case a 400 bad request error is returned.\n\nSome examples of invalid delete requests include:\n\n* Deleting one code unit of a surrogate pair.\n* Deleting the last newline character of a Body, Header,\n  Footer, Footnote, TableCell or TableOfContents.\n* Deleting the start or end of a Table,\n  TableOfContents or Equation without deleting the entire element.\n* Deleting the newline character before a\n  Table,\n  TableOfContents or\n  SectionBreak without deleting the\n  element.\n* Deleting individual rows or cells of a table. Deleting the content within\n  a table cell is allowed.",
+                                        "properties": {
+                                            "endIndex": {
+                                                "description": "The zero-based end index of this range, exclusive, in UTF-16 code units.\n\nIn all current uses, an end index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote that this range is contained in.\nAn empty segment ID signifies the document's body.",
+                                                "type": "string"
+                                            },
+                                            "startIndex": {
+                                                "description": "The zero-based start index of this range, in UTF-16 code units.\n\nIn all current uses, a start index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "deleteNamedRange": {
+                                "description": "Deletes a named range.",
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the range(s) to delete. All named ranges with the given\nname will be deleted.",
+                                        "type": "string"
+                                    },
+                                    "namedRangeId": {
+                                        "description": "The ID of the named range to delete.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "deleteParagraphBullets": {
+                                "description": "Deletes bullets from paragraphs.",
+                                "properties": {
+                                    "range": {
+                                        "description": "The range to delete bullets from.",
+                                        "properties": {
+                                            "endIndex": {
+                                                "description": "The zero-based end index of this range, exclusive, in UTF-16 code units.\n\nIn all current uses, an end index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote that this range is contained in.\nAn empty segment ID signifies the document's body.",
+                                                "type": "string"
+                                            },
+                                            "startIndex": {
+                                                "description": "The zero-based start index of this range, in UTF-16 code units.\n\nIn all current uses, a start index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "deletePositionedObject": {
+                                "description": "Deletes a positioned object from the document.",
+                                "properties": {
+                                    "objectId": {
+                                        "description": "The ID of the positioned object to delete.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "deleteTableColumn": {
+                                "description": "Deletes a column from a table.",
+                                "properties": {
+                                    "tableCellLocation": {
+                                        "description": "The reference table cell location from which the column will be deleted.\n\nThe column this cell spans will be deleted. If this is a merged cell that\nspans multiple columns, all columns that the cell spans will be deleted. If\nno columns remain in the table after this deletion, the whole table is\ndeleted.",
+                                        "properties": {
+                                            "columnIndex": {
+                                                "description": "The zero-based column index. For example, the second column in the table\nhas a column index of 1.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "rowIndex": {
+                                                "description": "The zero-based row index. For example, the second row in the table has a\nrow index of 1.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "tableStartLocation": {
+                                                "description": "The location where the table starts in the document.",
+                                                "properties": {
+                                                    "index": {
+                                                        "description": "The zero-based index, in UTF-16 code units.\n\nThe index is relative to the beginning of the segment specified by\nsegment_id.",
+                                                        "format": "int32",
+                                                        "type": "integer"
+                                                    },
+                                                    "segmentId": {
+                                                        "description": "The ID of the header, footer or footnote the location is in. An empty\nsegment ID signifies the document's body.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "deleteTableRow": {
+                                "description": "Deletes a row from a table.",
+                                "properties": {
+                                    "tableCellLocation": {
+                                        "description": "The reference table cell location from which the row will be deleted.\n\nThe row this cell spans will be deleted. If this is a merged cell that\nspans multiple rows, all rows that the cell spans will be deleted. If no\nrows remain in the table after this deletion, the whole table is deleted.",
+                                        "properties": {
+                                            "columnIndex": {
+                                                "description": "The zero-based column index. For example, the second column in the table\nhas a column index of 1.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "rowIndex": {
+                                                "description": "The zero-based row index. For example, the second row in the table has a\nrow index of 1.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "tableStartLocation": {
+                                                "description": "The location where the table starts in the document.",
+                                                "properties": {
+                                                    "index": {
+                                                        "description": "The zero-based index, in UTF-16 code units.\n\nThe index is relative to the beginning of the segment specified by\nsegment_id.",
+                                                        "format": "int32",
+                                                        "type": "integer"
+                                                    },
+                                                    "segmentId": {
+                                                        "description": "The ID of the header, footer or footnote the location is in. An empty\nsegment ID signifies the document's body.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "insertInlineImage": {
+                                "description": "Inserts an inline image at the specified location.",
+                                "properties": {
+                                    "endOfSegmentLocation": {
+                                        "description": "Inserts the text at the end of a header, footer or the document body.\n\nInline images cannot be inserted inside a footnote.",
+                                        "properties": {
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote the location is in. An empty\nsegment ID signifies the document's body.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "location": {
+                                        "description": "Inserts the image at a specific index in the document.\n\nThe image must be inserted inside the bounds of an existing\nParagraph. For instance, it cannot be\ninserted at a table's start index (i.e. between the table and its\npreceding paragraph).\n\nInline images cannot be inserted inside a footnote or equation.",
+                                        "properties": {
+                                            "index": {
+                                                "description": "The zero-based index, in UTF-16 code units.\n\nThe index is relative to the beginning of the segment specified by\nsegment_id.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote the location is in. An empty\nsegment ID signifies the document's body.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "objectSize": {
+                                        "description": "The size that the image should appear as in the document. This property is\noptional and the final size of the image in the document is determined by\nthe following rules:\n * If neither width nor height is specified, then a default size of the\n image is calculated based on its resolution.\n * If one dimension is specified then the other dimension is calculated to\n preserve the aspect ratio of the image.\n * If both width and height are specified, the image is scaled to fit\n within the provided dimensions while maintaining its aspect ratio.",
+                                        "properties": {
+                                            "height": {
+                                                "description": "The height of the object.",
+                                                "properties": {
+                                                    "magnitude": {
+                                                        "description": "The magnitude.",
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "unit": {
+                                                        "description": "The units for magnitude.",
+                                                        "enum": [
+                                                            "UNIT_UNSPECIFIED",
+                                                            "PT"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "width": {
+                                                "description": "The width of the object.",
+                                                "properties": {
+                                                    "magnitude": {
+                                                        "description": "The magnitude.",
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "unit": {
+                                                        "description": "The units for magnitude.",
+                                                        "enum": [
+                                                            "UNIT_UNSPECIFIED",
+                                                            "PT"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "uri": {
+                                        "description": "The image URI.\n\nThe image is fetched once at insertion time and a copy is stored for\ndisplay inside the document. Images must be less than 50MB in size, cannot\nexceed 25 megapixels, and must be in one of PNG, JPEG, or GIF format.\n\nThe provided URI can be at most 2 kB in length. The URI itself is saved\nwith the image, and exposed via the ImageProperties.content_uri field.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "insertTableRow": {
+                                "description": "Inserts an empty row into a table.",
+                                "properties": {
+                                    "insertBelow": {
+                                        "description": "Whether to insert new row below the reference cell location.\n\n- `True`: insert below the cell.\n- `False`: insert above the cell.",
+                                        "type": "boolean"
+                                    },
+                                    "tableCellLocation": {
+                                        "description": "The reference table cell location from which rows will be inserted.\n\nA new row will be inserted above (or below) the row where the reference\ncell is. If the reference cell is a merged cell, a new row will be\ninserted above (or below) the merged cell.",
+                                        "properties": {
+                                            "columnIndex": {
+                                                "description": "The zero-based column index. For example, the second column in the table\nhas a column index of 1.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "rowIndex": {
+                                                "description": "The zero-based row index. For example, the second row in the table has a\nrow index of 1.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "tableStartLocation": {
+                                                "description": "The location where the table starts in the document.",
+                                                "properties": {
+                                                    "index": {
+                                                        "description": "The zero-based index, in UTF-16 code units.\n\nThe index is relative to the beginning of the segment specified by\nsegment_id.",
+                                                        "format": "int32",
+                                                        "type": "integer"
+                                                    },
+                                                    "segmentId": {
+                                                        "description": "The ID of the header, footer or footnote the location is in. An empty\nsegment ID signifies the document's body.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "insertText": {
+                                "description": "Inserts text at the specified location.",
+                                "properties": {
+                                    "endOfSegmentLocation": {
+                                        "description": "Inserts the text at the end of a header, footer, footnote or\nthe document body.",
+                                        "properties": {
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote the location is in. An empty\nsegment ID signifies the document's body.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "location": {
+                                        "description": "Inserts the text at a specific index in the document.\n\nText must be inserted inside the bounds of an existing\nParagraph. For instance, text cannot be\ninserted at a table's start index (i.e. between the table and its\npreceding paragraph). The text must be inserted in the preceding\nparagraph.",
+                                        "properties": {
+                                            "index": {
+                                                "description": "The zero-based index, in UTF-16 code units.\n\nThe index is relative to the beginning of the segment specified by\nsegment_id.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote the location is in. An empty\nsegment ID signifies the document's body.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "text": {
+                                        "description": "The text to be inserted.\n\nInserting a newline character will implicitly create a new\nParagraph at that index.\nThe paragraph style of the new paragraph will be copied from the paragraph\nat the current insertion index, including lists and bullets.\n\nText styles for inserted text will be determined automatically, generally\npreserving the styling of neighboring text. In most cases, the text style\nfor the inserted text will match the text immediately before the insertion\nindex.\n\nSome control characters (U+0000-U+0008, U+000C-U+001F) and characters\nfrom the Unicode Basic Multilingual Plane Private Use Area (U+E000-U+F8FF)\nwill be stripped out of the inserted text.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "replaceAllText": {
+                                "description": "Replaces all instances of the specified text.",
+                                "properties": {
+                                    "containsText": {
+                                        "description": "Finds text in the document matching this substring.",
+                                        "properties": {
+                                            "matchCase": {
+                                                "description": "Indicates whether the search should respect case:\n\n- `True`: the search is case sensitive.\n- `False`: the search is case insensitive.",
+                                                "type": "boolean"
+                                            },
+                                            "text": {
+                                                "description": "The text to search for in the document.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "replaceText": {
+                                        "description": "The text that will replace the matched text.",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "updateParagraphStyle": {
+                                "description": "Updates the paragraph style at the specified range.",
+                                "properties": {
+                                    "fields": {
+                                        "description": "The fields that should be updated.\n\nAt least one field must be specified. The root `paragraph_style` is implied\nand should not be specified.\n\nFor example, to update the paragraph style's alignment property, set\n`fields` to `\"alignment\"`.\n\nTo reset a property to its default value, include its field name in the\nfield mask but leave the field itself unset.",
+                                        "format": "google-fieldmask",
+                                        "type": "string"
+                                    },
+                                    "paragraphStyle": {
+                                        "description": "The styles to set on the paragraphs.\n\nCertain paragraph style changes may cause other changes in order to mirror\nthe behavior of the Docs editor. See the documentation of ParagraphStyle for more information.",
+                                        "properties": {
+                                            "alignment": {
+                                                "description": "The text alignment for this paragraph.",
+                                                "enum": [
+                                                    "ALIGNMENT_UNSPECIFIED",
+                                                    "START",
+                                                    "CENTER",
+                                                    "END",
+                                                    "JUSTIFIED"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "avoidWidowAndOrphan": {
+                                                "description": "Whether to avoid widows and orphans for the paragraph. If unset, the value\nis inherited from the parent.",
+                                                "type": "boolean"
+                                            },
+                                            "borderBetween": {
+                                                "description": "The border between this paragraph and the next and previous paragraphs.\nIf unset, the value is inherited from the parent.\n\nThe between border is rendered when the adjacent paragraph has the same\nborder and indent properties.\n\nParagraph borders cannot be partially updated. When making\nchanges to a paragraph border the new border must be specified in\nits entirety.",
+                                                "properties": {
+                                                    "color": {
+                                                        "description": "The color of the border.",
+                                                        "properties": {
+                                                            "color": {
+                                                                "description": "If set, this will be used as an opaque color. If unset, this represents\na transparent color.",
+                                                                "properties": {
+                                                                    "rgbColor": {
+                                                                        "description": "The RGB color value.",
+                                                                        "properties": {
+                                                                            "blue": {
+                                                                                "description": "The blue component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "green": {
+                                                                                "description": "The green component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "red": {
+                                                                                "description": "The red component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "dashStyle": {
+                                                        "description": "The dash style of the border.",
+                                                        "enum": [
+                                                            "DASH_STYLE_UNSPECIFIED",
+                                                            "SOLID",
+                                                            "DOT",
+                                                            "DASH"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "padding": {
+                                                        "description": "The padding of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "width": {
+                                                        "description": "The width of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "borderBottom": {
+                                                "description": "The border at the bottom of this paragraph. If unset, the value is\ninherited from the parent.\n\nThe bottom border is rendered when the paragraph below has different border\nand indent properties.\n\nParagraph borders cannot be partially updated. When making\nchanges to a paragraph border the new border must be specified in\nits entirety.",
+                                                "properties": {
+                                                    "color": {
+                                                        "description": "The color of the border.",
+                                                        "properties": {
+                                                            "color": {
+                                                                "description": "If set, this will be used as an opaque color. If unset, this represents\na transparent color.",
+                                                                "properties": {
+                                                                    "rgbColor": {
+                                                                        "description": "The RGB color value.",
+                                                                        "properties": {
+                                                                            "blue": {
+                                                                                "description": "The blue component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "green": {
+                                                                                "description": "The green component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "red": {
+                                                                                "description": "The red component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "dashStyle": {
+                                                        "description": "The dash style of the border.",
+                                                        "enum": [
+                                                            "DASH_STYLE_UNSPECIFIED",
+                                                            "SOLID",
+                                                            "DOT",
+                                                            "DASH"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "padding": {
+                                                        "description": "The padding of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "width": {
+                                                        "description": "The width of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "borderLeft": {
+                                                "description": "The border to the left of this paragraph. If unset, the value is inherited\nfrom the parent.\n\nParagraph borders cannot be partially updated. When making\nchanges to a paragraph border the new border must be specified in\nits entirety.",
+                                                "properties": {
+                                                    "color": {
+                                                        "description": "The color of the border.",
+                                                        "properties": {
+                                                            "color": {
+                                                                "description": "If set, this will be used as an opaque color. If unset, this represents\na transparent color.",
+                                                                "properties": {
+                                                                    "rgbColor": {
+                                                                        "description": "The RGB color value.",
+                                                                        "properties": {
+                                                                            "blue": {
+                                                                                "description": "The blue component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "green": {
+                                                                                "description": "The green component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "red": {
+                                                                                "description": "The red component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "dashStyle": {
+                                                        "description": "The dash style of the border.",
+                                                        "enum": [
+                                                            "DASH_STYLE_UNSPECIFIED",
+                                                            "SOLID",
+                                                            "DOT",
+                                                            "DASH"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "padding": {
+                                                        "description": "The padding of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "width": {
+                                                        "description": "The width of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "borderRight": {
+                                                "description": "The border to the right of this paragraph. If unset, the value is inherited\nfrom the parent.\n\nParagraph borders cannot be partially updated. When making\nchanges to a paragraph border the new border must be specified in\nits entirety.",
+                                                "properties": {
+                                                    "color": {
+                                                        "description": "The color of the border.",
+                                                        "properties": {
+                                                            "color": {
+                                                                "description": "If set, this will be used as an opaque color. If unset, this represents\na transparent color.",
+                                                                "properties": {
+                                                                    "rgbColor": {
+                                                                        "description": "The RGB color value.",
+                                                                        "properties": {
+                                                                            "blue": {
+                                                                                "description": "The blue component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "green": {
+                                                                                "description": "The green component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "red": {
+                                                                                "description": "The red component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "dashStyle": {
+                                                        "description": "The dash style of the border.",
+                                                        "enum": [
+                                                            "DASH_STYLE_UNSPECIFIED",
+                                                            "SOLID",
+                                                            "DOT",
+                                                            "DASH"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "padding": {
+                                                        "description": "The padding of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "width": {
+                                                        "description": "The width of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "borderTop": {
+                                                "description": "The border at the top of this paragraph. If unset, the value is inherited\nfrom the parent.\n\nThe top border is rendered when the paragraph above has different border\nand indent properties.\n\nParagraph borders cannot be partially updated. When making\nchanges to a paragraph border the new border must be specified in\nits entirety.",
+                                                "properties": {
+                                                    "color": {
+                                                        "description": "The color of the border.",
+                                                        "properties": {
+                                                            "color": {
+                                                                "description": "If set, this will be used as an opaque color. If unset, this represents\na transparent color.",
+                                                                "properties": {
+                                                                    "rgbColor": {
+                                                                        "description": "The RGB color value.",
+                                                                        "properties": {
+                                                                            "blue": {
+                                                                                "description": "The blue component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "green": {
+                                                                                "description": "The green component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "red": {
+                                                                                "description": "The red component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "dashStyle": {
+                                                        "description": "The dash style of the border.",
+                                                        "enum": [
+                                                            "DASH_STYLE_UNSPECIFIED",
+                                                            "SOLID",
+                                                            "DOT",
+                                                            "DASH"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "padding": {
+                                                        "description": "The padding of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "width": {
+                                                        "description": "The width of the border.",
+                                                        "properties": {
+                                                            "magnitude": {
+                                                                "description": "The magnitude.",
+                                                                "format": "double",
+                                                                "type": "number"
+                                                            },
+                                                            "unit": {
+                                                                "description": "The units for magnitude.",
+                                                                "enum": [
+                                                                    "UNIT_UNSPECIFIED",
+                                                                    "PT"
+                                                                ],
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "direction": {
+                                                "description": "The text direction of this paragraph. If unset, the value defaults to\nLEFT_TO_RIGHT since\nparagraph direction is not inherited.",
+                                                "enum": [
+                                                    "CONTENT_DIRECTION_UNSPECIFIED",
+                                                    "LEFT_TO_RIGHT",
+                                                    "RIGHT_TO_LEFT"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "headingId": {
+                                                "description": "The heading ID of the paragraph. If empty, then this paragraph is not a\nheading. This property is read-only.",
+                                                "type": "string"
+                                            },
+                                            "indentEnd": {
+                                                "description": "The amount of indentation for the paragraph on the side that corresponds to\nthe end of the text, based on the current paragraph direction. If unset,\nthe value is inherited from the parent.",
+                                                "properties": {
+                                                    "magnitude": {
+                                                        "description": "The magnitude.",
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "unit": {
+                                                        "description": "The units for magnitude.",
+                                                        "enum": [
+                                                            "UNIT_UNSPECIFIED",
+                                                            "PT"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "indentFirstLine": {
+                                                "description": "The amount of indentation for the first line of the paragraph. If unset,\nthe value is inherited from the parent.",
+                                                "properties": {
+                                                    "magnitude": {
+                                                        "description": "The magnitude.",
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "unit": {
+                                                        "description": "The units for magnitude.",
+                                                        "enum": [
+                                                            "UNIT_UNSPECIFIED",
+                                                            "PT"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "indentStart": {
+                                                "description": "The amount of indentation for the paragraph on the side that corresponds to\nthe start of the text, based on the current paragraph direction. If unset,\nthe value is inherited from the parent.",
+                                                "properties": {
+                                                    "magnitude": {
+                                                        "description": "The magnitude.",
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "unit": {
+                                                        "description": "The units for magnitude.",
+                                                        "enum": [
+                                                            "UNIT_UNSPECIFIED",
+                                                            "PT"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "keepLinesTogether": {
+                                                "description": "Whether all lines of the paragraph should be laid out on the same page or\ncolumn if possible. If unset, the value is inherited from the parent.",
+                                                "type": "boolean"
+                                            },
+                                            "keepWithNext": {
+                                                "description": "Whether at least a part of this paragraph should be laid out on the same\npage or column as the next paragraph if possible. If unset, the value is\ninherited from the parent.",
+                                                "type": "boolean"
+                                            },
+                                            "lineSpacing": {
+                                                "description": "The amount of space between lines, as a percentage of normal, where normal\nis represented as 100.0. If unset, the value is inherited from the parent.",
+                                                "format": "float",
+                                                "type": "number"
+                                            },
+                                            "namedStyleType": {
+                                                "description": "The named style type of the paragraph.\n\nSince updating the named style type affects other properties within\nParagraphStyle, the named style type is applied before the other properties\nare updated.",
+                                                "enum": [
+                                                    "NAMED_STYLE_TYPE_UNSPECIFIED",
+                                                    "NORMAL_TEXT",
+                                                    "TITLE",
+                                                    "SUBTITLE",
+                                                    "HEADING_1",
+                                                    "HEADING_2",
+                                                    "HEADING_3",
+                                                    "HEADING_4",
+                                                    "HEADING_5",
+                                                    "HEADING_6"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "shading": {
+                                                "description": "The shading of the paragraph. If unset, the value is inherited from the\nparent.",
+                                                "properties": {
+                                                    "backgroundColor": {
+                                                        "description": "The background color of this paragraph shading.",
+                                                        "properties": {
+                                                            "color": {
+                                                                "description": "If set, this will be used as an opaque color. If unset, this represents\na transparent color.",
+                                                                "properties": {
+                                                                    "rgbColor": {
+                                                                        "description": "The RGB color value.",
+                                                                        "properties": {
+                                                                            "blue": {
+                                                                                "description": "The blue component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "green": {
+                                                                                "description": "The green component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            },
+                                                                            "red": {
+                                                                                "description": "The red component of the color, from 0.0 to 1.0.",
+                                                                                "format": "float",
+                                                                                "type": "number"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "spaceAbove": {
+                                                "description": "The amount of extra space above the paragraph. If unset, the value is\ninherited from the parent.",
+                                                "properties": {
+                                                    "magnitude": {
+                                                        "description": "The magnitude.",
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "unit": {
+                                                        "description": "The units for magnitude.",
+                                                        "enum": [
+                                                            "UNIT_UNSPECIFIED",
+                                                            "PT"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "spaceBelow": {
+                                                "description": "The amount of extra space below the paragraph. If unset, the value is\ninherited from the parent.",
+                                                "properties": {
+                                                    "magnitude": {
+                                                        "description": "The magnitude.",
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "unit": {
+                                                        "description": "The units for magnitude.",
+                                                        "enum": [
+                                                            "UNIT_UNSPECIFIED",
+                                                            "PT"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "spacingMode": {
+                                                "description": "The spacing mode for the paragraph.",
+                                                "enum": [
+                                                    "SPACING_MODE_UNSPECIFIED",
+                                                    "NEVER_COLLAPSE",
+                                                    "COLLAPSE_LISTS"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "tabStops": {
+                                                "description": "A list of the tab stops for this paragraph. The list of tab stops is not\ninherited. This property is read-only.",
+                                                "items": {
+                                                    "description": "A tab stop within a paragraph.",
+                                                    "properties": {
+                                                        "alignment": {
+                                                            "description": "The alignment of this tab stop. If unset, the value defaults to START.",
+                                                            "enum": [
+                                                                "TAB_STOP_ALIGNMENT_UNSPECIFIED",
+                                                                "START",
+                                                                "CENTER",
+                                                                "END"
+                                                            ],
+                                                            "type": "string"
+                                                        },
+                                                        "offset": {
+                                                            "description": "The offset between this tab stop and the start margin.",
+                                                            "properties": {
+                                                                "magnitude": {
+                                                                    "description": "The magnitude.",
+                                                                    "format": "double",
+                                                                    "type": "number"
+                                                                },
+                                                                "unit": {
+                                                                    "description": "The units for magnitude.",
+                                                                    "enum": [
+                                                                        "UNIT_UNSPECIFIED",
+                                                                        "PT"
+                                                                    ],
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "range": {
+                                        "description": "The range overlapping the paragraphs to style.",
+                                        "properties": {
+                                            "endIndex": {
+                                                "description": "The zero-based end index of this range, exclusive, in UTF-16 code units.\n\nIn all current uses, an end index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote that this range is contained in.\nAn empty segment ID signifies the document's body.",
+                                                "type": "string"
+                                            },
+                                            "startIndex": {
+                                                "description": "The zero-based start index of this range, in UTF-16 code units.\n\nIn all current uses, a start index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "updateTextStyle": {
+                                "description": "Updates the text style at the specified range.",
+                                "properties": {
+                                    "fields": {
+                                        "description": "The fields that should be updated.\n\nAt least one field must be specified. The root `text_style` is implied and\nshould not be specified. A single `\"*\"` can be used as short-hand for\nlisting every field.\n\nFor example, to update the text style to bold, set `fields` to `\"bold\"`.\n\nTo reset a property to its default value, include its field name in the\nfield mask but leave the field itself unset.",
+                                        "format": "google-fieldmask",
+                                        "type": "string"
+                                    },
+                                    "range": {
+                                        "description": "The range of text to style.\n\nThe range may be extended to include adjacent newlines.\n\nIf the range fully contains a paragraph belonging to a list, the\nparagraph's bullet is also updated with the matching text style.",
+                                        "properties": {
+                                            "endIndex": {
+                                                "description": "The zero-based end index of this range, exclusive, in UTF-16 code units.\n\nIn all current uses, an end index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            },
+                                            "segmentId": {
+                                                "description": "The ID of the header, footer or footnote that this range is contained in.\nAn empty segment ID signifies the document's body.",
+                                                "type": "string"
+                                            },
+                                            "startIndex": {
+                                                "description": "The zero-based start index of this range, in UTF-16 code units.\n\nIn all current uses, a start index must be provided. This field is an\nInt32Value in order to accommodate future use cases with open-ended ranges.",
+                                                "format": "int32",
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "textStyle": {
+                                        "description": "The styles to set on the text.\n\nIf the value for a particular style matches that of the parent, that style\nwill be set to inherit.\n\nCertain text style changes may cause other changes in order to to mirror\nthe behavior of the Docs editor. See the documentation of\nTextStyle for more information.",
+                                        "properties": {
+                                            "backgroundColor": {
+                                                "description": "The background color of the text. If set, the color is either an RGB color\nor transparent, depending on the `color` field.",
+                                                "properties": {
+                                                    "color": {
+                                                        "description": "If set, this will be used as an opaque color. If unset, this represents\na transparent color.",
+                                                        "properties": {
+                                                            "rgbColor": {
+                                                                "description": "The RGB color value.",
+                                                                "properties": {
+                                                                    "blue": {
+                                                                        "description": "The blue component of the color, from 0.0 to 1.0.",
+                                                                        "format": "float",
+                                                                        "type": "number"
+                                                                    },
+                                                                    "green": {
+                                                                        "description": "The green component of the color, from 0.0 to 1.0.",
+                                                                        "format": "float",
+                                                                        "type": "number"
+                                                                    },
+                                                                    "red": {
+                                                                        "description": "The red component of the color, from 0.0 to 1.0.",
+                                                                        "format": "float",
+                                                                        "type": "number"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "baselineOffset": {
+                                                "description": "The text's vertical offset from its normal position.\n\nText with `SUPERSCRIPT` or `SUBSCRIPT` baseline offsets is automatically\nrendered in a smaller font size, computed based on the `font_size` field.\nThe `font_size` itself is not affected by changes in this field.",
+                                                "enum": [
+                                                    "BASELINE_OFFSET_UNSPECIFIED",
+                                                    "NONE",
+                                                    "SUPERSCRIPT",
+                                                    "SUBSCRIPT"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "bold": {
+                                                "description": "Whether or not the text is rendered as bold.",
+                                                "type": "boolean"
+                                            },
+                                            "fontSize": {
+                                                "description": "The size of the text's font.",
+                                                "properties": {
+                                                    "magnitude": {
+                                                        "description": "The magnitude.",
+                                                        "format": "double",
+                                                        "type": "number"
+                                                    },
+                                                    "unit": {
+                                                        "description": "The units for magnitude.",
+                                                        "enum": [
+                                                            "UNIT_UNSPECIFIED",
+                                                            "PT"
+                                                        ],
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "foregroundColor": {
+                                                "description": "The foreground color of the text. If set, the color is either an RGB color\nor transparent, depending on the `color` field.",
+                                                "properties": {
+                                                    "color": {
+                                                        "description": "If set, this will be used as an opaque color. If unset, this represents\na transparent color.",
+                                                        "properties": {
+                                                            "rgbColor": {
+                                                                "description": "The RGB color value.",
+                                                                "properties": {
+                                                                    "blue": {
+                                                                        "description": "The blue component of the color, from 0.0 to 1.0.",
+                                                                        "format": "float",
+                                                                        "type": "number"
+                                                                    },
+                                                                    "green": {
+                                                                        "description": "The green component of the color, from 0.0 to 1.0.",
+                                                                        "format": "float",
+                                                                        "type": "number"
+                                                                    },
+                                                                    "red": {
+                                                                        "description": "The red component of the color, from 0.0 to 1.0.",
+                                                                        "format": "float",
+                                                                        "type": "number"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "italic": {
+                                                "description": "Whether or not the text is italicized.",
+                                                "type": "boolean"
+                                            },
+                                            "link": {
+                                                "description": "The hyperlink destination of the text. If unset, there is no link. Links\nare not inherited from parent text.\n\nChanging the link in an update request causes some other changes to the\ntext style of the range:\n\n* When setting a link, the text foreground color will be updated to the\n  default link color and the text will be underlined. If these fields are\n  modified in the same request, those values will be used instead of the\n  link defaults.\n* Setting a link on a text range that overlaps with an existing link will\n  also update the existing link to point to the new URL.\n* Links are not settable on newline characters. As a result, setting a link\n  on a text range that crosses a paragraph boundary, such as `\"ABC\\n123\"`,\n  will separate the newline character(s) into their own text runs. The\n  link will be applied separately to the runs before and after the newline.\n* Removing a link will update the text style of the range to match the\n  style of the preceding text (or the default text styles if the preceding\n  text is another link) unless different styles are being set in the same\n  request.",
+                                                "properties": {
+                                                    "bookmarkId": {
+                                                        "description": "The ID of a bookmark in this document.",
+                                                        "type": "string"
+                                                    },
+                                                    "headingId": {
+                                                        "description": "The ID of a heading in this document.",
+                                                        "type": "string"
+                                                    },
+                                                    "url": {
+                                                        "description": "An external URL.",
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "smallCaps": {
+                                                "description": "Whether or not the text is in small capital letters.",
+                                                "type": "boolean"
+                                            },
+                                            "strikethrough": {
+                                                "description": "Whether or not the text is struck through.",
+                                                "type": "boolean"
+                                            },
+                                            "underline": {
+                                                "description": "Whether or not the text is underlined.",
+                                                "type": "boolean"
+                                            },
+                                            "weightedFontFamily": {
+                                                "description": "The font family and rendered weight of the text.\n\nIf an update request specifies values for both `weighted_font_family` and\n`bold`, the `weighted_font_family` is applied first, then `bold`.\n\nIf `weighted_font_family#weight` is not set, it defaults to `400`.\n\nIf `weighted_font_family` is set, then `weighted_font_family#font_family`\nmust also be set with a non-empty value. Otherwise, a 400 bad request error\nis returned.",
+                                                "properties": {
+                                                    "fontFamily": {
+                                                        "description": "The font family of the text.\n\nThe font family can be any font from the Font menu in Docs or from\n[Google Fonts] (https://fonts.google.com/). If the font name is\nunrecognized, the text is rendered in `Arial`.",
+                                                        "type": "string"
+                                                    },
+                                                    "weight": {
+                                                        "description": "The weight of the font. This field can have any value that is a multiple of\n`100` between `100` and `900`, inclusive. This range corresponds to the\nnumerical values described in the CSS 2.1 Specification,\n[section 15.6](https://www.w3.org/TR/CSS21/fonts.html#font-boldness), with\nnon-numerical values disallowed.\n\nThe default value is `400` (\"normal\").\n\nThe font weight makes up just one component of the rendered font weight.\nThe rendered weight is determined by a combination of the `weight` and the\ntext style's resolved `bold` value, after accounting for inheritance:\n\n* If the text is bold and the weight is less than `400`, the rendered\n  weight is 400.\n* If the text is bold and the weight is greater than or equal to `400` but\n  is less than `700`, the rendered weight is `700`.\n* If the weight is greater than or equal to `700`, the rendered weight is\n  equal to the weight.\n* If the text is not bold, the rendered weight is equal to the weight.",
+                                                        "format": "int32",
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "writeControl": {
+                    "description": "Provides control over how write requests are executed.",
+                    "properties": {
+                        "requiredRevisionId": {
+                            "description": "The ID of the revision of the document that the write request will be\napplied to. If this is not the latest revision of the document, the\nrequest will not be processed and will return a 400 bad request error.\n\nWhen a required revision ID is returned in a response, it indicates the\nrevision ID of the document after the request was applied.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    }
+}

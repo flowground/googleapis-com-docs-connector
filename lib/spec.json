@@ -41495,7 +41495,7 @@
                 "description": "Oauth 2.0 authentication",
                 "type": "oauth2",
                 "flows": {
-                    "implicit": {
+                    "authorizationCode": {
                         "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
                         "scopes": {
                             "https://www.googleapis.com/auth/documents": "View and manage your Google Docs documents",
@@ -41503,7 +41503,8 @@
                             "https://www.googleapis.com/auth/drive": "See, edit, create, and delete all of your Google Drive files",
                             "https://www.googleapis.com/auth/drive.file": "View and manage Google Drive files and folders that you have opened or created with this app",
                             "https://www.googleapis.com/auth/drive.readonly": "See and download all your Google Drive files"
-                        }
+                        },
+                        "tokenUrl": "https://www.googleapis.com/oauth2/v4/token"
                     }
                 }
             }
